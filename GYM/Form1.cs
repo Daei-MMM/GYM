@@ -16,5 +16,20 @@ namespace GYM
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MasterClass mc = new MasterClass();
+            if (mc.Login(comboBox1.Text,maskedTextBox1.Text))
+            { 
+                Form2 frm=new Form2();
+                frm.Show();
+            }
+            else
+            {
+                msg m = new msg();
+                MessageBox.Show(m.login_is_invalid);
+            }
+        }
     }
 }
