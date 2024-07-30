@@ -20,7 +20,7 @@ namespace GYM
         private void button1_Click(object sender, EventArgs e)
         {
             MasterClass mc = new MasterClass();
-            if (mc.Login(comboBox1.Text,maskedTextBox1.Text))
+            if (mc.Login(usercombo.Text,passwordmask.Text))
             { 
                 Form2 frm=new Form2();
                 frm.Show();
@@ -30,6 +30,23 @@ namespace GYM
                 msg m = new msg();
                 MessageBox.Show(m.login_is_invalid);
             }
+        }
+
+        private void usercombo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                passwordmask.Focus();
+        }
+
+        private void passwordmask_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                button1.Focus();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            usercombo.Focus();
         }
     }
 }

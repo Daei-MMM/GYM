@@ -16,31 +16,36 @@ namespace GYM
         {
             InitializeComponent();
         }
-        private void cut_Click(Object sender, EventArgs e)
+        private void barname(Object sender, EventArgs e)
         {
-            MessageBox.Show("CUT");
+            tabControl2.SelectTab(tabbarname);
+            codemeliM.Focus();
+            codemeliM.Text =varzeshkaranG.CurrentCell.Value.ToString();
+            
         }
-        private void copy2_Click(Object sender, EventArgs e)
+        private void hadaf(Object sender, EventArgs e)
         {
-            MessageBox.Show("CUT");
+            tabControl2.SelectTab(tabhadaf);
+            codemelihadafMT.Text= varzeshkaranG.CurrentCell.Value.ToString();
+            codemelihadafMT.Focus();
         }
-        private void paste2_Click(Object sender, EventArgs e)
+        private void dore(Object sender, EventArgs e)
         {
-            MessageBox.Show("CUT");
+            tabControl2.SelectTab(tabdore);
+            codemeilidoreM.Text = varzeshkaranG.CurrentCell.Value.ToString();
+            codemeilidoreM.Focus();
+
+        }
+        private void shahrie(Object sender, EventArgs e)
+        {
+            tabControl2.SelectTab(tabshahrie);
+            MTcodemelish.Text = varzeshkaranG.CurrentCell.Value.ToString();
+            MTcodemelish.Focus();
+
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            {
-                ContextMenu cm = new ContextMenu();
-                this.ContextMenu = cm;
-                cm.MenuItems.Add(new MenuItem("&Cut", new System.EventHandler(this.cut_Click)));
-                cm.MenuItems.Add(new MenuItem("&Copy", new System.EventHandler(this.copy2_Click)));
-                cm.MenuItems.Add(new MenuItem("&Paste", new System.EventHandler(this.paste2_Click)));
 
-
-
-                cm.Show(this, new Point(e.RowIndex, e.ColumnIndex));
-            }
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -49,9 +54,10 @@ namespace GYM
             {
                 ContextMenu cm = new ContextMenu();
                 this.ContextMenu = cm;
-                cm.MenuItems.Add(new MenuItem("&Cut", new System.EventHandler(this.cut_Click)));
-                cm.MenuItems.Add(new MenuItem("&Copy", new System.EventHandler(this.copy2_Click)));
-                cm.MenuItems.Add(new MenuItem("&Paste", new System.EventHandler(this.paste2_Click)));
+                cm.MenuItems.Add(new MenuItem("&ثبت برنامه", new System.EventHandler(this.barname)));
+                cm.MenuItems.Add(new MenuItem("&ثبت هدف", new System.EventHandler(this.hadaf)));
+                cm.MenuItems.Add(new MenuItem("&ثبت دوره", new System.EventHandler(this.dore)));
+                cm.MenuItems.Add(new MenuItem("&ثبت شهریه", new System.EventHandler(this.shahrie)));
 
 
 
@@ -73,6 +79,92 @@ namespace GYM
         private void maskedTextBox28_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
+        }
+
+        private void maskedTextBox20_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void MTcodemelish_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar==13)
+            {
+                msg ms = new msg();
+                if (MTcodemelish.Text == "")
+                {
+                    
+                    MessageBox.Show(ms.id);
+                    MTcodemelish.Focus();
+                    return;
+                }
+                MasterClass mc = new MasterClass();
+                if (mc.Check_id_invalid(MTcodemelish.Text))
+                {
+                    MessageBox.Show(ms.id_invalid);
+                    return;
+                }
+                Tnameshahrie.Text = mc.name(MTcodemelish.Text);
+                Tfamilyshahrie.Text = mc.family(MTcodemelish.Text);
+                Tbedehishah.Text = mc.shahrie(MTcodemelish.Text);
+            }
+        }
+
+        private void addvarzeshB_Click(object sender, EventArgs e)
+        {
+            msg ms = new msg();
+            bool check = true;
+            if (Tname.Text == "")
+            {
+                MessageBox.Show(ms.name);
+                Tname.Focus();
+                Tname.BackColor = Color.Red;
+                check = false;
+            }
+
+            if (Tfamily.Text == "")
+            {
+                MessageBox.Show(ms.family);
+                Tfamily.Focus();
+                Tfamily.BackColor = Color.Red;
+                check = false;
+            }
+            if (Tid.Text == "")
+            {
+                MessageBox.Show(ms.id);
+                Tid.Focus();
+                Tid.BackColor = Color.Red;
+                check = false;
+            }
+            
+            MasterClass mc = new MasterClass();
+            if (mc.Check_id_invalid(Tid.Text))
+            {
+                MessageBox.Show(ms.id_invalid);
+                Tid.Focus();
+                Tid.BackColor = Color.Red;
+                check = false;
+            }
+
+            if (!check)
+                return;
+            
+        }
+
+        private void Tid_Enter(object sender, EventArgs e)
+        {
+            Tid.BackColor = Color.White;
+           
+        }
+
+        private void Tname_TextChanged(object sender, EventArgs e)
+        {
+            Tname.BackColor = Color.White;
+        }
+
+        private void Tfamily_TextChanged(object sender, EventArgs e)
+        {
+            Tfamily.BackColor = Color.White;
         }
     }
 }

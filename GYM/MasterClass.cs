@@ -12,7 +12,29 @@ namespace GYM
         {
             return true;
         }
+        public bool Check_id_invalid(string id)
+        {
+            if (id.Length < 10)
+                return true;
+            else
+                return false;
+        }
+        public string name(string id)
+        {
+            string Name = "amin";
+            return Name;
+        }
+        public string family(string id)
+        {
+            string Name = "mi";
+            return Name;
+        }
+        public string shahrie(string id)
+        {
+            return "0";
+        }
 
-        
+
+
     }
 }
